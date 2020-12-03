@@ -21,6 +21,7 @@ public class AnswersScreenState : State
     }
     public override void Exit()
     {
+        Managers.Gui.CreateButtons();
         aPanel.Play("None");
         aPanel.gameObject.SetActive(false);
     }
@@ -29,21 +30,37 @@ public class AnswersScreenState : State
         if (name.Equals("OnClickButton"))
         {
             Button button = (Button)obj;
-            int number = int.Parse(button.name);
+            int number = int.Parse(button.GetComponentInChildren<Text>().text);
+            Color color;
             if (number == Managers.Game.currentNumber)
             {
-
+                color = Managers.Gui.successColor;
+                //ChangeState(new ResultScreenState(stateMachine));
+                aPanel.Play("Idle To Out");
             }
             else
             {
+                ++currentErrors;
+                color = Managers.Gui.failureColor;
+                button.GetComponent<Animator>().Play("Out");
 
             }
+            var colors = button.colors;
+            colors.disabledColor = color;
+            colors.selectedColor = color;
+            button.colors = colors;
+            button.interactable = false;
+
+
+            if (currentErrors >= maxErrors)
+            {
+                aPanel.Play("Idle To Out");
+            }
+
         }
-
-
-        if (name.Equals("Anim Out End"))
+        else if (name.Equals("Anim Out End"))
         {
-            ChangeState(new ResultScreenState(stateMachine));
+            ChangeState(new QuestionScreenState(stateMachine));
         }
     }
 }

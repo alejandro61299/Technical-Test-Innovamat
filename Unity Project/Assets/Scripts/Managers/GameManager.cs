@@ -48,8 +48,7 @@ public class GameManager : MonoBehaviour
 
         // Choose Correct Answer & Set Question Number Text
 
-        int correctAnswer = Random.Range(0, numbers.Count);
-        int currentNumber = numbers[correctAnswer];
+        currentNumber = numbers[Random.Range(0, numbers.Count)];
         string numberName = ((CatalanNumbers)currentNumber).ToString();
         Managers.Gui.numberText.text = numberName;
 

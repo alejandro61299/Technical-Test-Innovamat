@@ -9,8 +9,13 @@ public class GuiManager : MonoBehaviour
     public GameObject buttonBackPrefab;
     public Text numberText;
     public GameObject answersPanel;
+    public Animator buttonAnimation;
     public int maxAnswers;
     public float answersSeparation;
+    [ColorUsageAttribute(true)]
+    public Color failureColor;
+    [ColorUsageAttribute(true)]
+    public Color successColor;
 
     [HideInInspector] public Dictionary<string, Animator> animators { get; private set; }
     [HideInInspector] public Dictionary<string, Button> buttons { get; private set; }
@@ -23,9 +28,35 @@ public class GuiManager : MonoBehaviour
     }
     void Start()
     {
-        float initX = - ((answersSeparation * ((float)maxAnswers - 1f)) / 2f);
+        CreateButtons();
 
-        for (int i = 0; i < maxAnswers; ++i )
+        Animator[] arAnimators = GetComponentsInChildren<Animator>();
+
+        foreach( var animator in arAnimators)
+        {
+            if (!animator.name.Contains("Panel")) continue;
+            animators.Add( animator.name , animator);
+            animator.gameObject.SetActive(false);
+        }
+    }
+    public void OnClickButton(Button button)
+    {
+        Managers.Game.gameStateMachine.StateEvent("OnClickButton" , button);
+    }
+
+    public void CreateButtons()
+    {
+        buttons.Clear();
+
+        foreach (Transform child in answersPanel.transform)
+        {
+            if (child.name != "Question Text")
+                GameObject.Destroy(child.gameObject);
+        }
+
+        float initX = -((answersSeparation * ((float)maxAnswers - 1f)) / 2f);
+
+        for (int i = 0; i < maxAnswers; ++i)
         {
             // Instantiate Button Back
             GameObject buttonBack = Instantiate(buttonBackPrefab, answersPanel.transform);
@@ -39,29 +70,7 @@ public class GuiManager : MonoBehaviour
             initX += answersSeparation;
 
             buttons.Add(button.name, button);
-            button.onClick.AddListener(() => { OnClickButton(button.name, button); });
-        }
-
-        Animator[] arAnimators = FindObjectsOfType<Animator>();
-
-        foreach( var animator in arAnimators)
-        {
-            animators.Add( animator.name , animator);
-            animator.gameObject.SetActive(false);
-        }
-    }
-    public void OnClickButton( string name, Button button)
-    {
-        Managers.Game.gameStateMachine.StateEvent(name, button);
-    }
-
-    public void ResetButtons()
-    {
-        foreach( var par in buttons)
-        {
-            Button button = par.Value;
-            button = Instantiate(buttonPrefab.GetComponent<Button>());
-            button.onClick.AddListener(() => { OnClickButton(button.name, button); });
+            button.onClick.AddListener(() => { OnClickButton(button); });
         }
     }
 

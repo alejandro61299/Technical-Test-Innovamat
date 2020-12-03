@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationEvents : MonoBehaviour
+public class AnimationPanelEvents : MonoBehaviour
 {
     public void AnimationEvent( string name )
     {

@@ -710,8 +710,11 @@ MonoBehaviour:
     type: 3}
   numberText: {fileID: 387128933}
   answersPanel: {fileID: 255003574}
-  maxAnswers: 6
+  buttonAnimation: {fileID: 0}
+  maxAnswers: 3
   answersSeparation: 96
+  failureColor: {r: 0.5660378, g: 0.07742971, b: 0.07742971, a: 1}
+  successColor: {r: 0.06488074, g: 0.509434, b: 0.06888578, a: 1}
 --- !u!1 &1678672708
 GameObject:
   m_ObjectHideFlags: 0
