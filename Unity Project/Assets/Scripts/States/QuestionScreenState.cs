@@ -16,10 +16,6 @@ public class QuestionScreenState : State
         Managers.Game.PrepareNewRound();
 
     }
-    public override void Update() 
-    {
-
-    }
     public override void Exit() 
     {
         qPanel.Play("None");
@@ -31,11 +27,14 @@ public class QuestionScreenState : State
         {
             ChangeState(new AnswersScreenState(stateMachine));
         }
-
-
-        if (name.Equals("Anim Out End"))
+        if (name.Equals("Animation Event"))
         {
-            ChangeState(new AnswersScreenState(stateMachine));
+            MyAnimationEvent e = (MyAnimationEvent)obj;
+
+            if (e.gameObject.name.Equals("Question Panel") && e.name.Equals("End"))
+            {
+                ChangeState(new AnswersScreenState(stateMachine));
+            }
         }
     }
 }

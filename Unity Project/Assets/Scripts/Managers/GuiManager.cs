@@ -5,13 +5,8 @@ using UnityEngine.UI;
 
 public class GuiManager : MonoBehaviour
 {
-    public GameObject buttonPrefab;
-    public GameObject buttonBackPrefab;
-    public Text numberText;
-    public GameObject answersPanel;
-    public Animator buttonAnimation;
-    public int maxAnswers;
-    public float answersSeparation;
+
+
     [ColorUsageAttribute(true)]
     public Color failureColor;
     [ColorUsageAttribute(true)]
@@ -19,59 +14,39 @@ public class GuiManager : MonoBehaviour
 
     [HideInInspector] public Dictionary<string, Animator> animators { get; private set; }
     [HideInInspector] public Dictionary<string, Button> buttons { get; private set; }
+    [HideInInspector] public Dictionary<string, Text> texts { get; private set; }
 
     private void Awake()
     {
         Managers.Gui = this;
         buttons = new Dictionary<string, Button>();
         animators = new Dictionary<string, Animator>();
+        texts = new Dictionary<string, Text>();
     }
     void Start()
     {
-        CreateButtons();
 
-        Animator[] arAnimators = GetComponentsInChildren<Animator>();
+        AnswersButtonsScript aButtons = GameObject.FindObjectOfType<AnswersButtonsScript>();
+        aButtons.InstanceButtons();
 
-        foreach( var animator in arAnimators)
+        GameObject[] auGameObj = GameObject.FindGameObjectsWithTag("Animated UI");
+
+        foreach( var go in auGameObj)
         {
-            if (!animator.name.Contains("Panel")) continue;
-            animators.Add( animator.name , animator);
-            animator.gameObject.SetActive(false);
-        }
-    }
-    public void OnClickButton(Button button)
-    {
-        Managers.Game.gameStateMachine.StateEvent("OnClickButton" , button);
-    }
-
-    public void CreateButtons()
-    {
-        buttons.Clear();
-
-        foreach (Transform child in answersPanel.transform)
-        {
-            if (child.name != "Question Text")
-                GameObject.Destroy(child.gameObject);
+            Animator animatorPanel = go.GetComponent<Animator>();
+            if (animatorPanel == null) continue;
+            animators.Add(animatorPanel.name , animatorPanel);
         }
 
-        float initX = -((answersSeparation * ((float)maxAnswers - 1f)) / 2f);
+        GameObject[] dtGameObj = GameObject.FindGameObjectsWithTag("Dynamic Text");
 
-        for (int i = 0; i < maxAnswers; ++i)
+        foreach (var go in dtGameObj)
         {
-            // Instantiate Button Back
-            GameObject buttonBack = Instantiate(buttonBackPrefab, answersPanel.transform);
-            buttonBack.GetComponent<RectTransform>().anchoredPosition = new Vector2(initX, 0);
-            buttonBack.name = i.ToString() + " Back";
-            // Instantiate Button
-            Button button = Instantiate(buttonPrefab, answersPanel.transform).GetComponent<Button>();
-            button.GetComponent<RectTransform>().anchoredPosition = new Vector2(initX, 0);
-            button.name = i.ToString();
-
-            initX += answersSeparation;
-
-            buttons.Add(button.name, button);
-            button.onClick.AddListener(() => { OnClickButton(button); });
+            Text dynText = go.GetComponent<Text>();
+            if (dynText == null) continue;
+            texts.Add(dynText.name, dynText);
         }
     }
+
 
 }

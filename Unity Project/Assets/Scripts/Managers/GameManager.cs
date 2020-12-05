@@ -11,7 +11,11 @@ public class GameManager : MonoBehaviour
     public int success { get; private set; }
     public int failures { get; private set; }
 
+    [HideInInspector] public Button correctButton { get; private set; }
     [HideInInspector] public StateMachine gameStateMachine { get; private set; }
+
+    private ScoreNumbersScript scoreNumbers;
+
     private void Awake()
     {
         Managers.Game = this;
@@ -20,10 +24,6 @@ public class GameManager : MonoBehaviour
     {
         gameStateMachine = GetComponent<StateMachine>();
         gameStateMachine.ChangeState(new QuestionScreenState(gameStateMachine), 1.5f);
-    }
-    void Update()
-    {
-        
     }
 
     public void PrepareNewRound()
@@ -44,23 +44,31 @@ public class GameManager : MonoBehaviour
             while (numbers.Contains(newRandom));
 
             numbers[i] = newRandom;
+
+            Managers.Gui.buttons[i.ToString()].GetComponentInChildren<Text>().text = numbers[i].ToString(); // Set Buttons Text 
         }
 
         // Choose Correct Answer & Set Question Number Text
 
-        currentNumber = numbers[Random.Range(0, numbers.Count)];
+        int randomIndex = Random.Range(0, numbers.Count);
+        currentNumber = numbers[randomIndex];
+        correctButton = Managers.Gui.buttons[randomIndex.ToString()];
         string numberName = ((CatalanNumbers)currentNumber).ToString();
-        Managers.Gui.numberText.text = numberName;
-
-
-        // Set Buttons Text 
-        int j = 0;
-        foreach (var par in Managers.Gui.buttons)
-        {
-            Button button = par.Value;
-            button.GetComponentInChildren<Text>().text = numbers[j++].ToString(); 
-        }
-
-
+        Managers.Gui.texts["Question Number Text"].text = numberName;
     }
+    public void AddScorePoint(bool hasFailed)
+    {
+        if (hasFailed)
+        {
+            ++failures;
+            Managers.Gui.texts["Failures Num"].GetComponent<Animator>().Play("Score");
+
+        }
+        else
+        {
+            ++success;
+            Managers.Gui.texts["Success Num"].GetComponent<Animator>().Play("Score");
+        }
+    }
+
 }

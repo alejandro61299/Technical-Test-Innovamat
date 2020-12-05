@@ -4,63 +4,100 @@ using UnityEngine;
 using UnityEngine.UI;
 public class AnswersScreenState : State
 {
-    private int maxErrors = 2;
-    private int currentErrors = 0;
+    private int maxErrors;
+    private int currentErrors;
     private Animator aPanel;
+    private AnswersButtonsScript aButtons;
+    private bool activeInput = false;
+
     public AnswersScreenState(StateMachine stateMachine) : base(stateMachine)
     { }
     public override void Enter()
     {
+        currentErrors = 0;
+        maxErrors = 2;
         aPanel = Managers.Gui.animators["Answers Panel"];
         aPanel.gameObject.SetActive(true);
+        aButtons = aPanel.GetComponent<AnswersButtonsScript>();
         aPanel.Play("Bounce");
+
     }
     public override void Update()
     {
+        bool isIdle = aPanel.GetCurrentAnimatorStateInfo(0).IsName("Idle");
+
+        if (activeInput != isIdle)
+        {
+            activeInput = isIdle;
+            aButtons.ButtonsInteraction(activeInput);
+        }
 
     }
+
     public override void Exit()
     {
-        Managers.Gui.CreateButtons();
+        aButtons.InstanceButtons();
         aPanel.Play("None");
         aPanel.gameObject.SetActive(false);
     }
+
+    private void TintButton(Button button, Color color)
+    {
+        var colors = button.colors;
+        colors.disabledColor = colors.selectedColor = colors.selectedColor = color;
+        button.colors = colors;
+    }
+
     public override void Event(string name, object obj)
     {
         if (name.Equals("OnClickButton"))
         {
-            Button button = (Button)obj;
-            int number = int.Parse(button.GetComponentInChildren<Text>().text);
             Color color;
-            if (number == Managers.Game.currentNumber)
+            bool tintAll = false;
+            Button clickedButton = (Button)obj;
+
+            if (Managers.Game.correctButton == clickedButton)
             {
                 color = Managers.Gui.successColor;
-                //ChangeState(new ResultScreenState(stateMachine));
                 aPanel.Play("Idle To Out");
+                Managers.Game.AddScorePoint(false);
+                tintAll = true;
             }
             else
             {
-                ++currentErrors;
                 color = Managers.Gui.failureColor;
-                button.GetComponent<Animator>().Play("Out");
+                clickedButton.GetComponent<Animator>().Play("Out");
+                ++currentErrors;
 
+                if ( currentErrors == maxErrors)
+                {
+                    aPanel.Play("Idle To Out");
+                    Managers.Game.AddScorePoint(true);
+                    tintAll = true;
+                }
             }
-            var colors = button.colors;
-            colors.disabledColor = color;
-            colors.selectedColor = color;
-            button.colors = colors;
-            button.interactable = false;
 
-
-            if (currentErrors >= maxErrors)
+            if (tintAll)
             {
-                aPanel.Play("Idle To Out");
+                foreach ( var pair in Managers.Gui.buttons)
+                {
+                    TintButton(pair.Value, (Managers.Game.correctButton == pair.Value) ? Managers.Gui.successColor : Managers.Gui.failureColor);
+                }
+            }
+            else
+            {
+                TintButton(clickedButton, color);
             }
 
         }
-        else if (name.Equals("Anim Out End"))
+        else if (name.Equals("Animation Event"))
         {
-            ChangeState(new QuestionScreenState(stateMachine));
+            MyAnimationEvent e = (MyAnimationEvent)obj;
+
+            if (e.gameObject.name.Equals("Answers Panel") && e.name.Equals("End"))
+            {
+                ChangeState(new QuestionScreenState(stateMachine));
+            }
         }
     }
 }
