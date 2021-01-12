@@ -23,4 +23,14 @@ public class AnimatedGuiElement : MonoBehaviour
         if (animator == null) 
             animator.Play(animationName);
     }
+
+    public bool IsStateName( string stateName)
+    {
+        Animator animator = GetComponent<Animator>();
+
+        if (animator == null)
+            return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
+        else
+            return false;
+    }
 }

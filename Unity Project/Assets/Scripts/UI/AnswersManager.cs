@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 //using System.Linq;
 
-public class AnswersButtonsScript : MonoBehaviour
+public class AnswersManager : MonoBehaviour
 {
     public int maxAnswers = 3;
     public float answersSeparation = 96;
@@ -31,7 +31,6 @@ public class AnswersButtonsScript : MonoBehaviour
         {
             if (child.CompareTag("Answer Button"))
             {
-                Managers.Gui.buttons.Remove(child.gameObject.name);
                 Destroy(child.gameObject);
             }
         }
@@ -50,9 +49,6 @@ public class AnswersButtonsScript : MonoBehaviour
             Button button = Instantiate(buttonPrefab, transform).GetComponent<Button>();
             button.GetComponent<RectTransform>().anchoredPosition = new Vector2(initX, 0);
             button.name = i.ToString();
-            // Add to Buttons List 
-            Managers.Gui.buttons.Add(button.name, button);
-            button.onClick.AddListener(() => { Managers.Game.gameStateMachine.StateEvent("OnClickButton", button); });
             initX += answersSeparation;
         }
     }

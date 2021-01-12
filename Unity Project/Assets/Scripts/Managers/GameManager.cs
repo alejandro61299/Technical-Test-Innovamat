@@ -52,20 +52,20 @@ public class GameManager : MonoBehaviour
         currentNumber = numbers[randomIndex];
         correctButton = Managers.Gui.buttons[randomIndex.ToString()];
         string numberName = ((CatalanNumbers)currentNumber).ToString();
-        Managers.Gui.texts["Question Number Text"].text = numberName;
+        Managers.Gui.ChangeText("Question Number Text", numberName);
     }
     public void AddScorePoint(bool hasFailed)
     {
         if (hasFailed)
         {
             ++failures;
-            Managers.Gui.texts["Failures Num"].GetComponent<Animator>().Play("Score");
+            Managers.Gui.PlayAnimation("Failures Num" , "Score");
 
         }
         else
         {
             ++success;
-            Managers.Gui.texts["Success Num"].GetComponent<Animator>().Play("Score");
+            Managers.Gui.PlayAnimation("Success Num", "Score");
         }
     }
 
