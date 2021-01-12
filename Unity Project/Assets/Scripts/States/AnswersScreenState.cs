@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class AnswersScreenState : State
 {
-    public AnswersManager answersManager;
-
     private int maxErrors;
     private int currentErrors;
     private bool activeInput = false;
@@ -14,8 +12,8 @@ public class AnswersScreenState : State
     { }
     public override void Enter()
     {
-        currentErrors = 0;
-        maxErrors = 2;
+       currentErrors = 0;
+       maxErrors = 2;
        Managers.Gui.PlayAnimation("Answers Panel", "Bounce") ;
 
     }
@@ -26,13 +24,13 @@ public class AnswersScreenState : State
         if (activeInput != isIdle)
         {
             activeInput = isIdle;
-            answersManager.ButtonsInteraction(activeInput);
+            Managers.Game.answersManager.ButtonsInteraction(activeInput);
         }
     }
 
     public override void Exit()
     {
-        answersManager.InstanceButtons();
+        Managers.Game.answersManager.InstanceButtons();
         Managers.Gui.PlayAnimation("Answers Panel", "None");
     }
 

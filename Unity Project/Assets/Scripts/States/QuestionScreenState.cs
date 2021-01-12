@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class QuestionScreenState : State
 {
-    private Animator qPanel;
     public QuestionScreenState(StateMachine stateMachine ) : base(stateMachine)
     {}
     public override void Enter() 
     {
-        qPanel = Managers.Gui.animators["Question Panel"];
-        qPanel.gameObject.SetActive(true);
-        qPanel.Play("Bounce");
-
+        Managers.Gui.PlayAnimation("Question Panel", "Bounce");
         Managers.Game.PrepareNewRound();
-
     }
     public override void Exit() 
     {
-        qPanel.Play("None");
-        qPanel.gameObject.SetActive(false);
+        Managers.Gui.PlayAnimation("Question Panel", "None");
     }
     public override void Event(string name, object obj)
     {

@@ -16,7 +16,6 @@ public class ButtonGuiElement : MonoBehaviour
             Managers.Gui.buttonElements.Add(gameObject.name, this);
             button.onClick.AddListener(() => { Managers.Game.gameStateMachine.StateEvent("OnClickButton", this); });
         }
-           
     }
 
     private void OnDestroy()

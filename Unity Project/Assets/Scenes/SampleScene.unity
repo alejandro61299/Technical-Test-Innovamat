@@ -1013,10 +1013,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1619696264}
-  - component: {fileID: 1619696265}
   - component: {fileID: 1619696263}
   - component: {fileID: 1619696262}
   - component: {fileID: 1619696261}
+  - component: {fileID: 1619696265}
   m_Layer: 5
   m_Name: GUI Manager
   m_TagString: Untagged

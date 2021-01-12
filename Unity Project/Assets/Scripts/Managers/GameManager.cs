@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public Button correctButton { get; private set; }
     [HideInInspector] public StateMachine gameStateMachine { get; private set; }
+    [HideInInspector] public AnswersManager answersManager { get; private set; }
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        answersManager = FindObjectOfType<AnswersManager>();
         gameStateMachine = GetComponent<StateMachine>();
         gameStateMachine.ChangeState(new QuestionScreenState(gameStateMachine), 1.5f);
     }
