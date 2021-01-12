@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Managers 
 {
-    static public GuiManager Gui = null;
-    static public GameManager Game = null;
-
+    public static GuiManager Gui = null;
+    public static GameManager Game = null;
 }

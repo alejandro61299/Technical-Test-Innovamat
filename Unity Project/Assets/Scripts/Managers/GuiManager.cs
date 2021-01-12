@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class GuiManager : MonoBehaviour
 {
-
-
     [ColorUsageAttribute(true)]
     public Color failureColor;
     [ColorUsageAttribute(true)]
@@ -16,12 +14,21 @@ public class GuiManager : MonoBehaviour
     [HideInInspector] public Dictionary<string, Button> buttons { get; private set; }
     [HideInInspector] public Dictionary<string, Text> texts { get; private set; }
 
+
+    [HideInInspector] public Dictionary<string, TextGuiElement> textElements { get; private set; }
+    [HideInInspector] public Dictionary<string, ButtonGuiElement> buttonElements { get; private set; }
+    [HideInInspector] public Dictionary<string, AnimatedGuiElement> animatedElements { get; private set; }
+
     private void Awake()
     {
         Managers.Gui = this;
         buttons = new Dictionary<string, Button>();
         animators = new Dictionary<string, Animator>();
         texts = new Dictionary<string, Text>();
+
+        buttonElements = new Dictionary<string, ButtonGuiElement>();
+        textElements = new Dictionary<string, TextGuiElement>();
+        animatedElements = new Dictionary<string, AnimatedGuiElement>();
     }
     void Start()
     {

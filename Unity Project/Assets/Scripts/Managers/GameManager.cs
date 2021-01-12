@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Button correctButton { get; private set; }
     [HideInInspector] public StateMachine gameStateMachine { get; private set; }
 
-    private ScoreNumbersScript scoreNumbers;
-
     private void Awake()
     {
         Managers.Game = this;
