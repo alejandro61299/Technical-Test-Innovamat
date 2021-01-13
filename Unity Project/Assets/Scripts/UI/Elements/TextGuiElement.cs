@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TextGuiElement : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         if (Managers.Gui != null)
             Managers.Gui.textElements.Add(gameObject.name, this);
@@ -21,7 +21,7 @@ public class TextGuiElement : MonoBehaviour
     {
         Text text = GetComponent<Text>();
 
-        if (text == null) 
+        if (text != null) 
             text.text = newText;
     }
 }

@@ -14,7 +14,9 @@ public class AnswersScreenState : State
     {
        currentErrors = 0;
        maxErrors = 2;
-       Managers.Gui.PlayAnimation("Answers Panel", "Bounce") ;
+
+        Managers.Game.answersManager.InstanceButtons();
+        Managers.Gui.PlayAnimation("Answers Panel", "Bounce") ;
 
     }
     public override void Update()
@@ -30,7 +32,6 @@ public class AnswersScreenState : State
 
     public override void Exit()
     {
-        Managers.Game.answersManager.InstanceButtons();
         Managers.Gui.PlayAnimation("Answers Panel", "None");
     }
 

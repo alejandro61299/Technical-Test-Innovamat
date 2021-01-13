@@ -9,7 +9,7 @@ public class QuestionScreenState : State
     public override void Enter() 
     {
         Managers.Gui.PlayAnimation("Question Panel", "Bounce");
-        Managers.Game.PrepareNewRound();
+        Managers.Game.answersManager.GenerateRoundInfo();
     }
     public override void Exit() 
     {

@@ -6,10 +6,13 @@ using UnityEngine.UI;
 public class ButtonGuiElement : MonoBehaviour
 {
     public Button button { get; private set; }
-    public string collection = "Default";
+    public Text text { get; private set; }
+
+    public int collection = 0;
     private void Awake()
     {
         button = GetComponent<Button>();
+        text = GetComponentInChildren<Text>();
 
         if (Managers.Gui != null && button != null)
         {
@@ -26,13 +29,19 @@ public class ButtonGuiElement : MonoBehaviour
 
     public void ChangeColor(Color color)
     {
-        Button button = GetComponent<Button>();
-
-        if (button == null)
+        if (button != null)
         {
             var colors = button.colors;
             colors.disabledColor = colors.selectedColor = colors.selectedColor = color;
             button.colors = colors;
+        }
+    }
+
+    public void ChangeText(string newText)
+    {
+        if(text != null)
+        {
+            text.text = newText;
         }
     }
 }

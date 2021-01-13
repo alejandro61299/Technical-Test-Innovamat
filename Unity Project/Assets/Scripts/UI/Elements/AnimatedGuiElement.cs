@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimatedGuiElement : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         if (Managers.Gui != null) 
             Managers.Gui.animatedElements.Add( gameObject.name, this);
@@ -20,7 +20,7 @@ public class AnimatedGuiElement : MonoBehaviour
     {
         Animator animator = GetComponent<Animator>();
 
-        if (animator == null) 
+        if (animator != null) 
             animator.Play(animationName);
     }
 
@@ -28,7 +28,7 @@ public class AnimatedGuiElement : MonoBehaviour
     {
         Animator animator = GetComponent<Animator>();
 
-        if (animator == null)
+        if (animator != null)
             return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
         else
             return false;

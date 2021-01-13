@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7219515584986212230}
   - component: {fileID: 7219515584986212231}
   - component: {fileID: 8134171605911158759}
+  - component: {fileID: -8170421933335819766}
   m_Layer: 5
   m_Name: Button
   m_TagString: Answer Button
@@ -139,6 +140,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8170421933335819766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7219515584986212229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce4f1a32d1924274e96a8bdb39c0924b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collection: 0
 --- !u!1 &7219515585166655783
 GameObject:
   m_ObjectHideFlags: 0

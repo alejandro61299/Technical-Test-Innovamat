@@ -11,6 +11,11 @@ public class AnswersManager : MonoBehaviour
     public GameObject buttonPrefab;
     public GameObject buttonBackPrefab;
 
+    private ButtonGuiElement correctButton;
+    private List<int> answersList;
+    private int correctAnswerIndex = 0;
+
+
     public void ButtonsInteraction(bool value)
     {
         foreach (Transform child in transform)
@@ -22,10 +27,21 @@ public class AnswersManager : MonoBehaviour
             }
         }
     }
+    public void GenerateRoundInfo()
+    {
+        answersList = RandomEx.GetRandomNumbersList(maxAnswers);
+
+        // Choose Correct Answer & Set Question Number Text
+
+        correctAnswerIndex = Random.Range(0, answersList.Count);
+        int correctNumber = answersList[correctAnswerIndex];
+        string numberName = ((CatalanNumbers)correctNumber).ToString();
+        Managers.Gui.ChangeText("Question Number Text", numberName);
+    }
 
     public void InstanceButtons()
     {
-        // Remove from Buttons Dictionary
+        List<ButtonGuiElement> answersButtons =  Managers.Gui.GetButtonsByCollection(0);
 
         foreach (Transform child in transform)
         {
@@ -35,24 +51,30 @@ public class AnswersManager : MonoBehaviour
             }
         }
 
-        // Instance Buttons in its correct pos
+        // Instance Buttons in its correct position
 
-        float initX = -((answersSeparation * ((float)maxAnswers - 1f)) / 2f);
+        float offsetX = -((answersSeparation * ((float)maxAnswers - 1f)) * 0.5f);
+        Vector2 position = new Vector2(offsetX, 0);
 
         for (int i = 0; i < maxAnswers; ++i)
         {
             // Instantiate Button Back
             GameObject buttonBack = Instantiate(buttonBackPrefab, transform);
-            buttonBack.GetComponent<RectTransform>().anchoredPosition = new Vector2(initX, 0);
+            buttonBack.GetComponent<RectTransform>().anchoredPosition = position;
             buttonBack.name = i.ToString() + " Back";
             // Instantiate Button
-            Button button = Instantiate(buttonPrefab, transform).GetComponent<Button>();
-            button.GetComponent<RectTransform>().anchoredPosition = new Vector2(initX, 0);
+            ButtonGuiElement button = Instantiate(buttonPrefab, transform).GetComponent<ButtonGuiElement>();
+            button.GetComponent<RectTransform>().anchoredPosition = position;
             button.name = i.ToString();
-            initX += answersSeparation;
+            button.ChangeText(answersList[i].ToString());
         }
+
+        correctButton = Managers.Gui.buttonElements[answersList[correctAnswerIndex].ToString()];
     }
 }
+
+
+
 
 
 // Alternative Remove from Buttons Dictionary

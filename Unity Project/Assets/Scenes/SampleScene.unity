@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 67063091}
   - component: {fileID: 67063095}
   - component: {fileID: 67063094}
+  - component: {fileID: 67063097}
+  - component: {fileID: 67063096}
   m_Layer: 5
   m_Name: Failures Num
   m_TagString: Dynamic Text
@@ -232,6 +234,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &67063096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67063090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272570c39e84e174d8e118c80ebc8ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &67063097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67063090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1802cea81137aae47be90b7fd50d6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &197799769
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +288,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &197799771
 MonoBehaviour:
@@ -300,6 +326,7 @@ GameObject:
   - component: {fileID: 255003576}
   - component: {fileID: 255003577}
   - component: {fileID: 255003578}
+  - component: {fileID: 255003579}
   m_Layer: 5
   m_Name: Answers Panel
   m_TagString: Animated UI
@@ -376,6 +403,18 @@ MonoBehaviour:
     type: 3}
   buttonBackPrefab: {fileID: 7219515584986212229, guid: 7ed102263c10bad42b37a23b8fde2620,
     type: 3}
+--- !u!114 &255003579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255003574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1802cea81137aae47be90b7fd50d6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &369430701
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +426,7 @@ GameObject:
   - component: {fileID: 369430702}
   - component: {fileID: 369430703}
   - component: {fileID: 369430704}
+  - component: {fileID: 369430705}
   m_Layer: 5
   m_Name: Question Panel
   m_TagString: Animated UI
@@ -446,6 +486,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da98c9333747e24d8cd66e0069a55a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &369430705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369430701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1802cea81137aae47be90b7fd50d6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &387128931
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,6 +509,7 @@ GameObject:
   - component: {fileID: 387128932}
   - component: {fileID: 387128934}
   - component: {fileID: 387128933}
+  - component: {fileID: 387128935}
   m_Layer: 5
   m_Name: Question Number Text
   m_TagString: Dynamic Text
@@ -524,6 +577,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387128931}
   m_CullTransparentMesh: 0
+--- !u!114 &387128935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387128931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272570c39e84e174d8e118c80ebc8ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &611068551
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,6 +758,8 @@ GameObject:
   - component: {fileID: 910608075}
   - component: {fileID: 910608077}
   - component: {fileID: 910608076}
+  - component: {fileID: 910608079}
+  - component: {fileID: 910608078}
   m_Layer: 5
   m_Name: Success Num
   m_TagString: Dynamic Text
@@ -791,6 +858,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &910608078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910608072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272570c39e84e174d8e118c80ebc8ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &910608079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910608072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1802cea81137aae47be90b7fd50d6b92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +963,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1068316080
 GameObject:
@@ -1120,6 +1211,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   failureColor: {r: 0.5660378, g: 0.07742971, b: 0.07742971, a: 1}
   successColor: {r: 0.06488074, g: 0.509434, b: 0.06888578, a: 1}
+  collectionNames:
+  - AnswersButton
+  - PauseMenu
 --- !u!1 &1678672708
 GameObject:
   m_ObjectHideFlags: 0

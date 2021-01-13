@@ -9,6 +9,7 @@ public class GuiManager : MonoBehaviour
     public Color failureColor;
     [ColorUsageAttribute(true)]
     public Color successColor;
+    public List<string> collectionNames;
 
     [HideInInspector] public Dictionary<string, TextGuiElement> textElements { get; private set; }
     [HideInInspector] public Dictionary<string, ButtonGuiElement> buttonElements { get; private set; }
@@ -23,13 +24,12 @@ public class GuiManager : MonoBehaviour
     }
     void Start()
     {
-        AnswersManager aButtons = GameObject.FindObjectOfType<AnswersManager>();
-        aButtons.InstanceButtons();
+
     }
 
     public void PlayAnimation(string elementName, string animationName)
     {
-        if (animatedElements[elementName] != null)
+        if ( animatedElements.ContainsKey(elementName))
         {
             animatedElements[elementName].PlayAnimation(animationName);
         }
@@ -37,10 +37,27 @@ public class GuiManager : MonoBehaviour
 
     public void ChangeText(string elementName, string newText)
     {
-        if (textElements[elementName] != null)
+        if (textElements.ContainsKey(elementName))
         {
             textElements[elementName].ChangeText(newText);
         }
     }
+
+    public List<ButtonGuiElement> GetButtonsByCollection( int collection )
+    {
+        List<ButtonGuiElement> elements = new List<ButtonGuiElement>();
+
+        foreach (ButtonGuiElement button in buttonElements.Values)
+        {
+            if (button.collection == collection)
+            {
+                elements.Add(button);
+            }
+        }
+
+        return elements;
+    }
+
+
 
 }
