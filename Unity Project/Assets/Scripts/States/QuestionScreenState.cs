@@ -5,17 +5,27 @@ using MyEvents;
 
 public class QuestionScreenState : State
 {
+    Timer timer;
     public QuestionScreenState(StateMachine stateMachine ) : base(stateMachine)
     {}
     public override void Enter() 
     {
-        EventManager.instance.CallEvent("QuestionScreenStateEnter", null);
-        EventManager.instance.RegisterListener("QuestionPanelExitAnimEnd", AnimationEnd);
+        EventManager.instance.CallEvent( MyEventType.StateQuestionScreenEnter, null);
+        EventManager.instance.CallEvent(MyEventType.StartRound, null);
 
+        EventManager.instance.RegisterListener(MyEventType.AnimQuestionPanelExitEnd, AnimationEnd);
     }
+
+    public override void Update()
+    {
+        
+    }
+
     public override void Exit() 
     {
-        EventManager.instance.CallEvent("QuestionScreenStateExit", null);
+        EventManager.instance.CallEvent(MyEventType.StateQuestionScreenExit, null);
+
+        EventManager.instance.UnregisterListener(MyEventType.AnimAnswersPanelExitEnd, AnimationEnd);
     }
 
     void AnimationEnd( EventInfo info)

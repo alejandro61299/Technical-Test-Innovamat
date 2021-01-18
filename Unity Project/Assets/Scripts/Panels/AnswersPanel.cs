@@ -17,13 +17,13 @@ public class AnswersPanel : MonoBehaviour
     private void Start()
     {
         buttons = new  List<ButtonGuiElement>();
-        EventManager.instance.RegisterListener("AnswersScreenStateEnter", ShowPanel);
-        EventManager.instance.RegisterListener("EndRound", HidePanel);
+        EventManager.instance.RegisterListener(MyEventType.StateAnswersScreenEnter, ShowPanel);
+        //EventManager.instance.RegisterListener("EndRound", HidePanel);
     }
     private void OnDestroy()
     {
-        EventManager.instance.UnregisterListener("AnswerScreenStateEnter", ShowPanel);
-        EventManager.instance.UnregisterListener("EndRound", HidePanel);
+        EventManager.instance.UnregisterListener(MyEventType.StateAnswersScreenExit, ShowPanel);
+        //EventManager.instance.UnregisterListener("EndRound", HidePanel);
     }   
 
     public void ActiveButtonsInteractions(bool value)

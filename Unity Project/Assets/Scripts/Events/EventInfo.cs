@@ -6,6 +6,33 @@ using UnityEngine;
 namespace MyEvents
 {
 
+    public enum MyEventType
+    {
+        // States ----------------------
+        // Question Screen
+        StateQuestionScreenEnter,
+        StateQuestionScreenExit,
+        QuestionShowTimeEnd,
+
+        // Answers Screen
+        StateAnswersScreenEnter,
+        StateAnswersScreenExit,
+
+        // Animations ------------------
+        AnimQuestionPanelExitEnd,
+        AnimAnswersPanelExitEnd,
+        AnimAnswersPanelEnterEnd,
+
+        UpdateFailuresNumber,
+        UpdateSuccesNumber,
+
+        // Game -----------------------
+        RoundDataGenerated,
+        StartRound,
+        EndRound
+    }
+
+
     public abstract class EventInfo
     {
         public string description;

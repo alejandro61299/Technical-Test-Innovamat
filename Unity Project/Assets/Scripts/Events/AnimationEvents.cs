@@ -7,11 +7,8 @@ using MyEvents;
 
 public class AnimationEvents : MonoBehaviour
 {
-    public void AnimationEvent(AnimationEvent evt)
+    public void AnimationEvent(MyEventType evt)
     {
-        AnimationEventInfo info = new AnimationEventInfo();
-        info.clip = evt.animatorClipInfo.clip;
-        info.gameObject = gameObject;
-        EventManager.instance.CallEvent(evt.stringParameter, info);
+        EventManager.instance.CallEvent(evt, null);
     }
 }

@@ -11,13 +11,22 @@ public class ScorePanel : MonoBehaviour
 
     private void Start()
     {
-        EventManager.instance.RegisterListener("RoundEnds", RoundEnds);
+        EventManager.instance.RegisterListener(  MyEventType.EndRound , EndRound);
     }
 
-
-    void RoundEnds(EventInfo ei)
+    void EndRound(EventInfo ei)
     {
         RoundEmdEventInfo info = (RoundEmdEventInfo)ei;
+        if (info.playerWin)
+        {
+
+        }
+        else
+        {
+
+        }
+
+
     }
 
 

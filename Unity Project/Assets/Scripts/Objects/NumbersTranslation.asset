@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 928f1f121cff863478508fcea53e31ef, type: 3}
+  m_Name: NumbersTranslation
+  m_EditorClassIdentifier: 
+  numbers:
+  - number: 0
+    catalan: Zero
+    spanish: Cero
+    english: 
+  - number: 1
+    catalan: Un
+    spanish: Uno
+    english: 
+  - number: 2
+    catalan: Dos
+    spanish: Dos
+    english: 
+  - number: 3
+    catalan: Tres
+    spanish: Tres
+    english: 
+  - number: 4
+    catalan: Quatre
+    spanish: Cuatro
+    english: 
+  - number: 5
+    catalan: Cinc
+    spanish: Cinco
+    english: 
+  - number: 6
+    catalan: Sis
+    spanish: Seis
+    english: 
+  - number: 7
+    catalan: Set
+    spanish: Siete
+    english: 
+  - number: 8
+    catalan: Vuit
+    spanish: Ocho
+    english: 
+  - number: 9
+    catalan: Nou
+    spanish: Nueve
+    english: 

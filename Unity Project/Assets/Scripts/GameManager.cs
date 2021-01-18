@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MyEvents;
 
-public enum CatalanNumbers { Zero = 0, Un = 1, Dos = 2, Tres = 3, Quatre = 4, Cinc = 5, Sis = 6, Set = 7, Vuit = 8, Nou = 9, Deu = 10 }
-
+public enum Language { Catalan, Spanish, English  }
 public class GameManager : MonoBehaviour
 {
     private static GameManager current;
@@ -21,40 +20,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     // Game Data ---------------------
-    public int currentNumber { get; private set; }
+
+    public Language language = Language.Catalan;
+
+    public NumbersTranslation numbersTranslation;
     public int success { get; private set; }
     public int failures { get; private set; }
 
-    [HideInInspector] public ButtonGuiElement correctButton { get; private set; }
-    [HideInInspector] public StateMachine gameStateMachine { get; private set; }
-    [HideInInspector] public AnswersPanel answersManager { get; private set; }
+
+    public int maxAnswers = 3;
 
     [HideInInspector] public  List<int> answersList;
-    public int maxAnswers = 3;
-    public int correctAnswerIndex = 0;
 
-
+    [HideInInspector]  public int correctAnswerIndex = 0;
+    [HideInInspector] public StateMachine gameStateMachine { get; private set; }
 
     void Start()
     {
-        // Events Register 
-        EventManager.instance.RegisterListener("StartRound", StratRound);
-        EventManager.instance.RegisterListener("EndRound", EndRound);
-
         gameStateMachine = GetComponent<StateMachine>();
         gameStateMachine.ChangeState(new QuestionScreenState(gameStateMachine), 1.5f);
+
+        // Events Register 
+        EventManager.instance.RegisterListener(MyEventType.StartRound, StratRound);
+        EventManager.instance.RegisterListener(MyEventType.EndRound, EndRound);
     }
 
-
-    void StratRound( EventInfo ei)
+    public void StratRound( EventInfo ei)
     {
         GenerateRoundInfo();
-        EventManager.instance.CallEvent("RoundInfoGenerated", null );
 ;    }
-
-
     void EndRound( EventInfo ei)
     {
         RoundEmdEventInfo info = (RoundEmdEventInfo)ei;
@@ -67,21 +62,17 @@ public class GameManager : MonoBehaviour
             ++failures;
         }
     }
-
     public void GenerateRoundInfo()
     {
         // Choose Correct Answer & Set Question Number Text
 
         answersList = RandomEx.GetRandomNumbersList(maxAnswers);
         correctAnswerIndex = Random.Range(0, answersList.Count);
-        int correctNumber = answersList[correctAnswerIndex];
-        
-        // TODO: Add scriptable object with traductions
-        string numberName = ((CatalanNumbers)correctNumber).ToString();
-
-
-
-        //Managers.Gui.ChangeText("Question Number Text", numberName);
-
+        EventManager.instance.CallEvent(MyEventType.RoundDataGenerated, null);
+    }
+    public void GetCorrectAnswer(out int number, out string name )
+    {
+        number = answersList[correctAnswerIndex];
+        numbersTranslation.GetNumberName(number, language, out name);
     }
 }
