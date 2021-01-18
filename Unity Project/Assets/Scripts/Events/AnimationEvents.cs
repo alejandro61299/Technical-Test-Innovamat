@@ -12,6 +12,6 @@ public class AnimationEvents : MonoBehaviour
         AnimationEventInfo info = new AnimationEventInfo();
         info.clip = evt.animatorClipInfo.clip;
         info.gameObject = gameObject;
-        EventSystem.instance.CallEvent(evt.stringParameter, info);
+        EventManager.instance.CallEvent(evt.stringParameter, info);
     }
 }

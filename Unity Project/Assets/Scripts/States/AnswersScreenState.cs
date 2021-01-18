@@ -17,8 +17,8 @@ public class AnswersScreenState : State
         currentErrors = 0;
         maxErrors = 2;
         
-        EventSystem.instance.CallEvent("AnswersScreenStateEnter", null);
-        EventSystem.instance.RegisterListener("AnswersPanelExitAnimEnd", AnimationEnd);
+        EventManager.instance.CallEvent("AnswersScreenStateEnter", null);
+        EventManager.instance.RegisterListener("AnswersPanelExitAnimEnd", AnimationEnd);
     }
     public override void Update()
     {
@@ -33,7 +33,7 @@ public class AnswersScreenState : State
 
     public override void Exit()
     {
-        EventSystem.instance.CallEvent("AnswersScreenStateExit", null);
+        EventManager.instance.CallEvent("AnswersScreenStateExit", null);
     }
 
     void AnimationEnd( EventInfo info )

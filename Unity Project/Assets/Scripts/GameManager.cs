@@ -36,26 +36,22 @@ public class GameManager : MonoBehaviour
     public int correctAnswerIndex = 0;
 
 
+
     void Start()
     {
         // Events Register 
-        EventSystem.instance.RegisterListener("StartRound", StratRound);
-        EventSystem.instance.RegisterListener("EndRound", EndRound);
+        EventManager.instance.RegisterListener("StartRound", StratRound);
+        EventManager.instance.RegisterListener("EndRound", EndRound);
 
         gameStateMachine = GetComponent<StateMachine>();
         gameStateMachine.ChangeState(new QuestionScreenState(gameStateMachine), 1.5f);
     }
 
-    private void OnDestroy()
-    {
-        EventSystem.instance.UnregisterListener("StartRound", StratRound);
-        EventSystem.instance.UnregisterListener("EndRound", EndRound);
-    }
 
     void StratRound( EventInfo ei)
     {
         GenerateRoundInfo();
-        EventSystem.instance.CallEvent("RoundInfoGenerated", null );
+        EventManager.instance.CallEvent("RoundInfoGenerated", null );
 ;    }
 
 

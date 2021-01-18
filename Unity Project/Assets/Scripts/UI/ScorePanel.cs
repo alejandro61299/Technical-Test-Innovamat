@@ -11,7 +11,7 @@ public class ScorePanel : MonoBehaviour
 
     private void Start()
     {
-        EventSystem.instance.RegisterListener("RoundEnds", RoundEnds);
+        EventManager.instance.RegisterListener("RoundEnds", RoundEnds);
     }
 
 

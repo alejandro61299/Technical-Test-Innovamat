@@ -5,15 +5,19 @@ using MyEvents;
 
 public class QuestionPanel : MonoBehaviour
 {
-    
-
     void Start()
     {
-        EventSystem.instance.RegisterListener("Question")
+        EventManager.instance.RegisterListener("QuestionScreenStateEnter", ShowPanel);
+        EventManager.instance.RegisterListener("QuestionShowTimeEnd", HidePanel);
     }
 
-    void ShowPanel(EventInfo eventInfo)
+    public void ShowPanel(EventInfo eventInfo)
     {
         GetComponent<Animator>().Play("Enter");
+    }
+
+    public void HidePanel(EventInfo eventInfo)
+    {
+        GetComponent<Animator>().Play("Exit");
     }
 }

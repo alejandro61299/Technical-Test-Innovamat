@@ -9,13 +9,13 @@ public class QuestionScreenState : State
     {}
     public override void Enter() 
     {
-        EventSystem.instance.CallEvent("QuestionScreenStateEnter", null);
-        EventSystem.instance.RegisterListener("QuestionPanelExitAnimEnd", AnimationEnd);
+        EventManager.instance.CallEvent("QuestionScreenStateEnter", null);
+        EventManager.instance.RegisterListener("QuestionPanelExitAnimEnd", AnimationEnd);
 
     }
     public override void Exit() 
     {
-        EventSystem.instance.CallEvent("QuestionScreenStateExit", null);
+        EventManager.instance.CallEvent("QuestionScreenStateExit", null);
     }
 
     void AnimationEnd( EventInfo info)

@@ -5,17 +5,16 @@ using UnityEngine;
 
 namespace MyEvents
 {
-
-    public class EventSystem : MonoBehaviour
+    public class EventManager : MonoBehaviour
     {
-        static private EventSystem current;
-        static public EventSystem instance
+        static private EventManager current;
+        static public EventManager instance
         {
             get
             {
                 if (current == null)
                 {
-                    current = GameObject.FindObjectOfType<EventSystem>();
+                    current = FindObjectOfType<EventManager>();
                 }
                 return current;
             }
