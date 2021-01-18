@@ -29,7 +29,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bounce
+  m_Name: Enter
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -63,7 +63,7 @@ AnimatorStateMachine:
     m_Position: {x: -230, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2555746572480089673}
-    m_Position: {x: 30, y: 10, z: 0}
+    m_Position: {x: 40, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4505062377215168050}
     m_Position: {x: -230, y: 80, z: 0}
@@ -206,7 +206,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Out
+  m_Name: Exit
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

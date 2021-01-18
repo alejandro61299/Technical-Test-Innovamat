@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyEvents;
 
 public class QuestionScreenState : State
 {
@@ -8,28 +9,18 @@ public class QuestionScreenState : State
     {}
     public override void Enter() 
     {
-        Managers.Gui.PlayAnimation("Question Panel", "Bounce");
-        Managers.Game.answersManager.GenerateRoundInfo();
+        EventSystem.instance.CallEvent("QuestionScreenStateEnter", null);
+        EventSystem.instance.RegisterListener("QuestionPanelExitAnimEnd", AnimationEnd);
+
     }
     public override void Exit() 
     {
-        Managers.Gui.PlayAnimation("Question Panel", "None");
+        EventSystem.instance.CallEvent("QuestionScreenStateExit", null);
     }
-    public override void Event(string name, object obj)
-    {
-        if (name.Equals("OnClickButton"))
-        {
-            ChangeState(new AnswersScreenState(stateMachine));
-        }
-        if (name.Equals("Animation Event"))
-        {
-            MyAnimationEvent e = (MyAnimationEvent)obj;
 
-            if (e.gameObject.name.Equals("Question Panel") && e.name.Equals("End"))
-            {
-                ChangeState(new AnswersScreenState(stateMachine));
-            }
-        }
+    void AnimationEnd( EventInfo info)
+    {
+        ChangeState(new AnswersScreenState(stateMachine));
     }
 }
 
