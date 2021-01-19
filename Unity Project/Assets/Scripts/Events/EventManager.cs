@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,59 +21,59 @@ namespace MyEvents
             }
         }
 
-        private Dictionary<MyEventType, List<EventListener>> eventListeners;
-        public delegate void EventListener(EventInfo e);
+        private Dictionary<MyEventType, Action<EventInfo>> eventListeners;
 
-        public void RegisterListener(MyEventType eventType, EventListener listener)
+        public void StartListening(MyEventType eventType, Action<EventInfo> listener)
         {
             if (eventListeners == null)
             {
-                eventListeners = new Dictionary<MyEventType, List<EventListener>>();
+                eventListeners = new Dictionary<MyEventType, Action<EventInfo>>();
             }
 
             if (!eventListeners.ContainsKey(eventType))
             {
-                eventListeners.Add(eventType, new List<EventListener>());
+                eventListeners.Add(eventType, listener);
+            }
+            else
+            {
+                eventListeners[eventType] += listener;
             }
 
-            eventListeners[eventType].Add(listener);
         }
 
-        public void UnregisterListener(MyEventType eventType, EventListener listener)
+        public void StopListening(MyEventType eventType, Action<EventInfo> listener)
         {
             if (eventListeners.ContainsKey(eventType))
             {
-                eventListeners[eventType].Remove(listener);
+                eventListeners[eventType] -= listener;
 
-                if (eventListeners[eventType].Count == 0)
+                if (eventListeners[eventType] == null)
                 {
                     eventListeners.Remove(eventType);
                 }
             }
         }
 
-        public void CallEvent(MyEventType eventType, EventInfo info )
+        public void TriggerEvent(MyEventType eventType, EventInfo info )
         {
             if (eventListeners == null || !eventListeners.ContainsKey(eventType))
             {
                 return;
             }
 
-            foreach(EventListener eventListener in  eventListeners[eventType])
-            {
-                eventListener(info);
-            }
+            eventListeners[eventType]?.Invoke(info);
+
         }
 
-        public void CallEvent(MyEventType eventType, EventInfo info, float delay)
+        public void TriggerEvent(MyEventType eventType, EventInfo info, float delay)
         {
-            StartCoroutine(CallEventDelay(eventType, info, delay));
+            StartCoroutine(TriggerEventDelay(eventType, info, delay));
         }
 
-        IEnumerator CallEventDelay(MyEventType eventType,  EventInfo info, float delay)
+        IEnumerator TriggerEventDelay(MyEventType eventType,  EventInfo info, float delay)
         {
             yield return new WaitForSeconds(delay);
-            CallEvent(eventType, info, delay);
+            TriggerEvent(eventType, info, delay);
         }
     }
 

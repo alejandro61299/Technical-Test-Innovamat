@@ -53,3 +53,7 @@ MonoBehaviour:
     catalan: Nou
     spanish: Nueve
     english: 
+  - number: 10
+    catalan: Deu
+    spanish: Diez
+    english: 

@@ -10,19 +10,20 @@ public class ButtonGuiElement : MonoBehaviour
 
     public void ChangeColor(Color color)
     {
-        if (button != null)
-        {
-            var colors = button.colors;
-            colors.disabledColor = colors.selectedColor = colors.selectedColor = color;
-            button.colors = colors;
-        }
+        if (button == null)
+            button = GetComponent<Button>();
+
+        var colors = button.colors;
+        colors.disabledColor = colors.selectedColor = colors.selectedColor = color;
+        button.colors = colors;
+
     }
 
     public void ChangeText(string newText)
     {
-        if(text != null)
-        {
-            text.text = newText;
-        }
+        if (text == null)
+            text = GetComponentInChildren<Text>();
+
+        text.text = newText;
     }
 }

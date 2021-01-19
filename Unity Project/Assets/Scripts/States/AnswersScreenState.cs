@@ -6,37 +6,25 @@ using MyEvents;
 
 public class AnswersScreenState : State
 {
-    private int maxErrors;
-    private int currentErrors;
-    private bool activeInput = false;
-
     public AnswersScreenState(StateMachine stateMachine) : base(stateMachine)
     { }
     public override void Enter()
     {
-        currentErrors = 0;
-        maxErrors = 2;
-        
-        EventManager.instance.CallEvent(MyEventType.StateAnswersScreenEnter, null);
-        EventManager.instance.RegisterListener(MyEventType.AnimQuestionPanelExitEnd, AnimationEnd);
+        EventManager.instance.StartListening(MyEventType.AnimAnswersPanelExitEnd, GoNextState);
+        EventManager.instance.TriggerEvent(MyEventType.StateAnswersScreenEnter, null);
+
     }
     public override void Update()
     {
-        //bool isIdle = Managers.Gui.animatedElements["Answers Panel"].IsStateName("Idle");
 
-        //if (activeInput != isIdle)
-        //{
-        //    activeInput = isIdle;
-        //    Managers.Game.answersManager.ButtonsInteraction(activeInput);
-        //}
     }
 
     public override void Exit()
     {
-        EventManager.instance.CallEvent(MyEventType.StateAnswersScreenExit, null);
+        EventManager.instance.TriggerEvent(MyEventType.StateAnswersScreenExit, null);
     }
 
-    void AnimationEnd( EventInfo info )
+    void GoNextState( EventInfo info )
     {
         ChangeState(new QuestionScreenState(stateMachine));
     }

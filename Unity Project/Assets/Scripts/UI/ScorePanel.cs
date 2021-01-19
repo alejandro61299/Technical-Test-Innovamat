@@ -11,7 +11,7 @@ public class ScorePanel : MonoBehaviour
 
     private void Start()
     {
-        EventManager.instance.RegisterListener(  MyEventType.EndRound , EndRound);
+        EventManager.instance.StartListening(  MyEventType.EndRound , EndRound);
     }
 
     void EndRound(EventInfo ei)

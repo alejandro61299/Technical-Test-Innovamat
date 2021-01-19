@@ -10,10 +10,11 @@ public class QuestionScreenState : State
     {}
     public override void Enter() 
     {
-        EventManager.instance.CallEvent( MyEventType.StateQuestionScreenEnter, null);
-        EventManager.instance.CallEvent(MyEventType.StartRound, null);
+        EventManager.instance.StartListening(MyEventType.AnimQuestionPanelExitEnd, GoNextState);
 
-        EventManager.instance.RegisterListener(MyEventType.AnimQuestionPanelExitEnd, AnimationEnd);
+        EventManager.instance.TriggerEvent( MyEventType.StateQuestionScreenEnter, null);
+        EventManager.instance.TriggerEvent(MyEventType.StartRound, null);
+
     }
 
     public override void Update()
@@ -23,12 +24,12 @@ public class QuestionScreenState : State
 
     public override void Exit() 
     {
-        EventManager.instance.CallEvent(MyEventType.StateQuestionScreenExit, null);
+        EventManager.instance.StopListening(MyEventType.AnimAnswersPanelExitEnd, GoNextState);
 
-        EventManager.instance.UnregisterListener(MyEventType.AnimAnswersPanelExitEnd, AnimationEnd);
+        EventManager.instance.TriggerEvent(MyEventType.StateQuestionScreenExit, null);
     }
 
-    void AnimationEnd( EventInfo info)
+    void GoNextState( EventInfo info)
     {
         ChangeState(new AnswersScreenState(stateMachine));
     }

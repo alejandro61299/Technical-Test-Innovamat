@@ -10,9 +10,9 @@ public class QuestionPanel : MonoBehaviour
 
     void Start()
     {
-        EventManager.instance.RegisterListener(MyEventType.StateQuestionScreenEnter, ShowPanel);
-        EventManager.instance.RegisterListener( MyEventType.QuestionShowTimeEnd , HidePanel);
-        EventManager.instance.RegisterListener( MyEventType.RoundDataGenerated , SetQuestionText);
+        EventManager.instance.StartListening(MyEventType.StateQuestionScreenEnter, ShowPanel);
+        EventManager.instance.StartListening( MyEventType.QuestionShowTimeEnd , HidePanel);
+        EventManager.instance.StartListening( MyEventType.RoundDataGenerated , SetQuestionText);
 
     }
 

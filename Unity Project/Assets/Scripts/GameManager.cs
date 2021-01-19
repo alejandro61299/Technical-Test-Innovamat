@@ -42,8 +42,8 @@ public class GameManager : MonoBehaviour
         gameStateMachine.ChangeState(new QuestionScreenState(gameStateMachine), 1.5f);
 
         // Events Register 
-        EventManager.instance.RegisterListener(MyEventType.StartRound, StratRound);
-        EventManager.instance.RegisterListener(MyEventType.EndRound, EndRound);
+        EventManager.instance.StartListening(MyEventType.StartRound, StratRound);
+        EventManager.instance.StartListening(MyEventType.EndRound, EndRound);
     }
 
     public void StratRound( EventInfo ei)
@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
 
         answersList = RandomEx.GetRandomNumbersList(maxAnswers);
         correctAnswerIndex = Random.Range(0, answersList.Count);
-        EventManager.instance.CallEvent(MyEventType.RoundDataGenerated, null);
+        EventManager.instance.TriggerEvent(MyEventType.RoundDataGenerated, null);
     }
     public void GetCorrectAnswer(out int number, out string name )
     {

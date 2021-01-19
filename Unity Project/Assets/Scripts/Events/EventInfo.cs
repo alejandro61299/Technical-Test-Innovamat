@@ -20,8 +20,9 @@ namespace MyEvents
 
         // Animations ------------------
         AnimQuestionPanelExitEnd,
-        AnimAnswersPanelExitEnd,
+
         AnimAnswersPanelEnterEnd,
+        AnimAnswersPanelExitEnd,
 
         UpdateFailuresNumber,
         UpdateSuccesNumber,
@@ -30,6 +31,8 @@ namespace MyEvents
         RoundDataGenerated,
         StartRound,
         EndRound
+
+       
     }
 
 

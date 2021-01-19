@@ -17,27 +17,22 @@ public class AnswersPanel : MonoBehaviour
     private void Start()
     {
         buttons = new  List<ButtonGuiElement>();
-        EventManager.instance.RegisterListener(MyEventType.StateAnswersScreenEnter, ShowPanel);
-        //EventManager.instance.RegisterListener("EndRound", HidePanel);
+        EventManager.instance.StartListening(MyEventType.AnimAnswersPanelEnterEnd, ActiveButtons);
+        EventManager.instance.StartListening(MyEventType.StateAnswersScreenEnter, ShowPanel);
+        EventManager.instance.StartListening(MyEventType.EndRound, HidePanel);
+        EventManager.instance.StartListening(MyEventType.EndRound, DeactiveButtons);
+
     }
     private void OnDestroy()
     {
-        EventManager.instance.UnregisterListener(MyEventType.StateAnswersScreenExit, ShowPanel);
-        //EventManager.instance.UnregisterListener("EndRound", HidePanel);
-    }   
-
-    public void ActiveButtonsInteractions(bool value)
-    {
-        foreach (Transform child in transform)
-        {
-            Button button = child.GetComponent<Button>();
-            if (button != null)
-            {
-                button.interactable = value;
-            }
-        }
+        EventManager.instance.StopListening(MyEventType.AnimAnswersPanelEnterEnd, ActiveButtons);
+        EventManager.instance.StopListening(MyEventType.StateAnswersScreenEnter, ShowPanel);
+        EventManager.instance.StopListening(MyEventType.EndRound, HidePanel);
+        EventManager.instance.StopListening(MyEventType.EndRound, DeactiveButtons);
     }
-    public void InstanceButtons()
+
+
+    void InstanceButtons()
     {
 
         foreach (Transform child in transform)
@@ -58,16 +53,29 @@ public class AnswersPanel : MonoBehaviour
             // Instantiate Button Back
             GameObject buttonBack = Instantiate(buttonBackPrefab, transform);
             buttonBack.GetComponent<RectTransform>().anchoredPosition = position;
-            buttonBack.name = i.ToString() + " Back";
+
             // Instantiate Button
             ButtonGuiElement button = Instantiate(buttonPrefab, transform).GetComponent<ButtonGuiElement>();
             button.GetComponent<RectTransform>().anchoredPosition = position;
-            button.name = i.ToString();
             button.ChangeText(GameManager.instance.answersList[i].ToString());
+
+            position.x += answersSeparation;
 
             if (i == GameManager.instance.correctAnswerIndex)
             {
                 correctButton = button;
+            }
+        }
+    }
+
+    void ChangeButtonsInteraction(bool value)
+    {
+        foreach (Transform child in transform)
+        {
+            Button button = child.GetComponent<Button>();
+            if (button != null)
+            {
+                button.interactable = value;
             }
         }
     }
@@ -81,5 +89,15 @@ public class AnswersPanel : MonoBehaviour
     void HidePanel(EventInfo eventInfo)
     {
         GetComponent<Animator>().Play("Exit");
+    }
+
+    void ActiveButtons(EventInfo eventInfo)
+    {
+        ChangeButtonsInteraction(true);
+    }
+
+    void DeactiveButtons(EventInfo eventInfo)
+    {
+        ChangeButtonsInteraction(false);
     }
 }

@@ -9,6 +9,6 @@ public class AnimationEvents : MonoBehaviour
 {
     public void AnimationEvent(MyEventType evt)
     {
-        EventManager.instance.CallEvent(evt, null);
+        EventManager.instance.TriggerEvent(evt, null);
     }
 }
