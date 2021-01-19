@@ -275,9 +275,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f5a437bec10c1045961553194308d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  language: 0
-  numbersTranslation: {fileID: 11400000, guid: 429b00c99f677ee4d8f7e7bbc666a7b1, type: 2}
+  language: 1
   maxAnswers: 3
+  maxErrors: 2
+  numbersTranslation: {fileID: 11400000, guid: 429b00c99f677ee4d8f7e7bbc666a7b1, type: 2}
   answersList: 
   correctAnswerIndex: 0
 --- !u!1 &255003574
@@ -362,11 +363,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b34ed4692e7a94c82b8ed629c2dc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  successColor: {r: 0.15757795, g: 0.7169812, b: 0.11836952, a: 1}
+  failureColor: {r: 0.6981132, g: 0.06915272, b: 0.19314343, a: 1}
   answersSeparation: 96
   buttonPrefab: {fileID: 7219515584986212229, guid: f143bbfe9fd7e374e8353a7e5336c5ad,
     type: 3}
   buttonBackPrefab: {fileID: 7219515584986212229, guid: 7ed102263c10bad42b37a23b8fde2620,
     type: 3}
+  correctButton: {fileID: 0}
 --- !u!1 &369430701
 GameObject:
   m_ObjectHideFlags: 0

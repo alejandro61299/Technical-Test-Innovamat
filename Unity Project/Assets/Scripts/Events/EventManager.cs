@@ -23,6 +23,10 @@ namespace MyEvents
 
         private Dictionary<MyEventType, Action<EventInfo>> eventListeners;
 
+        private void Awake()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
         public void StartListening(MyEventType eventType, Action<EventInfo> listener)
         {
             if (eventListeners == null)

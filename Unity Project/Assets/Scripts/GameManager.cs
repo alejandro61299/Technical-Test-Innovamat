@@ -24,12 +24,14 @@ public class GameManager : MonoBehaviour
 
     public Language language = Language.Catalan;
 
-    public NumbersTranslation numbersTranslation;
-    public int success { get; private set; }
-    public int failures { get; private set; }
-
-
     public int maxAnswers = 3;
+
+    public int maxErrors = 2;
+
+    public NumbersTranslation numbersTranslation;
+
+    [HideInInspector]  public int success { get; private set; }
+    [HideInInspector]  public int failures { get; private set; }
 
     [HideInInspector] public  List<int> answersList;
 
@@ -65,7 +67,7 @@ public class GameManager : MonoBehaviour
     public void GenerateRoundInfo()
     {
         // Choose Correct Answer & Set Question Number Text
-
+        answersList.Clear();
         answersList = RandomEx.GetRandomNumbersList(maxAnswers);
         correctAnswerIndex = Random.Range(0, answersList.Count);
         EventManager.instance.TriggerEvent(MyEventType.RoundDataGenerated, null);

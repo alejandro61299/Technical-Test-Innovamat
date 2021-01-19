@@ -20,19 +20,20 @@ namespace MyEvents
 
         // Animations ------------------
         AnimQuestionPanelExitEnd,
-
         AnimAnswersPanelEnterEnd,
         AnimAnswersPanelExitEnd,
-
-        UpdateFailuresNumber,
-        UpdateSuccesNumber,
 
         // Game -----------------------
         RoundDataGenerated,
         StartRound,
-        EndRound
+        EndRound,
 
-       
+        // UI ----------
+        UpdateFailuresNumber,
+        UpdateSuccesNumber,
+        CorrectButtonClicked,
+        InorrectButtonClicked,
+
     }
 
 

@@ -6,17 +6,18 @@ using MyEvents;
 
 public class AnswersPanel : MonoBehaviour
 {
-
+    public Color successColor;
+    public Color failureColor;
     public float answersSeparation = 96;
     public GameObject buttonPrefab;
     public GameObject buttonBackPrefab;
+    private List<ButtonAnswer> buttons;
+    [HideInInspector] public ButtonAnswer correctButton;
 
-    private ButtonGuiElement correctButton;
-    private List<ButtonGuiElement> buttons;
 
     private void Start()
     {
-        buttons = new  List<ButtonGuiElement>();
+        buttons = new  List<ButtonAnswer>();
         EventManager.instance.StartListening(MyEventType.AnimAnswersPanelEnterEnd, ActiveButtons);
         EventManager.instance.StartListening(MyEventType.StateAnswersScreenEnter, ShowPanel);
         EventManager.instance.StartListening(MyEventType.EndRound, HidePanel);
@@ -34,11 +35,15 @@ public class AnswersPanel : MonoBehaviour
 
     void InstanceButtons()
     {
-
         foreach (Transform child in transform)
         {
             if (child.CompareTag("Answer Button"))
             {
+                ButtonAnswer buttonAnswer = child.GetComponent<ButtonAnswer>();
+                if (buttonAnswer)
+                {
+                    buttons.Remove(buttonAnswer);
+                }
                 Destroy(child.gameObject);
             }
         }
@@ -55,9 +60,11 @@ public class AnswersPanel : MonoBehaviour
             buttonBack.GetComponent<RectTransform>().anchoredPosition = position;
 
             // Instantiate Button
-            ButtonGuiElement button = Instantiate(buttonPrefab, transform).GetComponent<ButtonGuiElement>();
+            ButtonAnswer button = Instantiate(buttonPrefab, transform).GetComponent<ButtonAnswer>();
+            button.answersPanel = this;
             button.GetComponent<RectTransform>().anchoredPosition = position;
             button.ChangeText(GameManager.instance.answersList[i].ToString());
+            buttons.Add(button);
 
             position.x += answersSeparation;
 
@@ -70,13 +77,9 @@ public class AnswersPanel : MonoBehaviour
 
     void ChangeButtonsInteraction(bool value)
     {
-        foreach (Transform child in transform)
+        foreach (ButtonAnswer button in buttons)
         {
-            Button button = child.GetComponent<Button>();
-            if (button != null)
-            {
-                button.interactable = value;
-            }
+            button.ButtonInteraction(value);
         }
     }
 

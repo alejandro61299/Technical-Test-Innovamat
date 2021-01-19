@@ -152,7 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4f1a32d1924274e96a8bdb39c0924b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collection: 0
+  button: {fileID: 7219515584986212231}
+  text: {fileID: 7219515585166655785}
+  answersPanel: {fileID: 0}
 --- !u!1 &7219515585166655783
 GameObject:
   m_ObjectHideFlags: 0
